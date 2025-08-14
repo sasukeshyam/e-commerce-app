@@ -8,14 +8,16 @@ const Orders = ({ token }) => {
   const [orders, setOrders] = useState([])
 
   const fetchAllOrders = async () => {
-    if (!token) return
+    if (!token) {
+      return
+    }
 
     try {
       console.log("Admin token in frontend:", token)
       const response = await axios.post(
         backendUrl + '/api/order/list',
         {},
-        { headers: { Authorization: token } }
+        { headers: {token} }
       )
 
       if (response.data.success) {
@@ -33,7 +35,7 @@ const Orders = ({ token }) => {
       const response = await axios.post(
         backendUrl + '/api/order/status',
         { orderId, status: event.target.value },
-        { headers: { Authorization: token } }
+        { headers: {token} }
       )
 
       if (response.data.success) {
